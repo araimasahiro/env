@@ -1,0 +1,14 @@
+$AWS_SCRIPT="$HOME/code/aws"
+
+#Shell Scripts
+alias ec2-create="$AWS_SCRIPT/ec2-create.sh"
+alias ec2-spot-create="$AWS_SCRIPT/ec2-spot-create.sh"
+
+#Alias
+alias ec2-list-all="aws ec2 describe-instances --output json"
+alias ec2-list="ec2-list-all | jq -r '.[][].Instances[] | [.InstanceId, .State.Name, .InstanceType, .PrivateIpAddress//\"-\",
+ (.LaunchTime[0:19]|strptime(\"%Y-%m-%dT%H:%M:%S\")|mktime|strflocaltime(\"%F %X(GMT+9)\")), (if .Tags then .Tags[]|select(.Key==\"Name\").Value else \"-\" end), .InstanceLifecycle, .SpotInstanceRequestId//\"-\" ]|@tsv' | column -t"
+
+#(.LaunchTime | split("+") | .[0])
+#(.Tags|arrays|.[]|select(.Key=="Name").Value)
+#(if .Tags then .Tags[]|select(.Key=="Name").Value else "-" end)

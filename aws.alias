@@ -1,4 +1,4 @@
-$AWS_SCRIPT="$HOME/code/aws"
+AWS_SCRIPT="$HOME/code/aws"
 
 #Shell Scripts
 alias ec2-create="$AWS_SCRIPT/ec2-create.sh"
